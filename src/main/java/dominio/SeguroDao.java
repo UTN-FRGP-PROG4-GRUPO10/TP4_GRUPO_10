@@ -66,4 +66,24 @@ public class SeguroDao  {
 			
 			return Seguros;
 		}
+		
+		
+		public int ObtenerSiguienteID()
+		{
+			int nextId = 1;
+			String sql = "SELECT COALESCE(MAX(idSeguro), 0) + 1 AS nextId FROM seguros";
+			try (Connection cn = DriverManager.getConnection(host + dbName, user, pass);
+					Statement st = cn.createStatement();
+					ResultSet rs = st.executeQuery(sql)) {
+				
+				if (rs.next()) {
+					nextId = rs.getInt("nextId");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return nextId;
+		}
+		
+		
 }

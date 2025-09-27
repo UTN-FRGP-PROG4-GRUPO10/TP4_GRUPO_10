@@ -8,12 +8,12 @@
 </head>
 <body>
 	<a href="Inicio.jsp">Inicio</a> |
-	<a href="AgregarSeguro.jsp"><strong>Agregar Seguros</strong></a> |
-	<a href="servletSeguro?param=1">Listar Seguros</a>
+	<a href="servletSeguro?action=nuevo"><strong>Agregar Seguros</strong></a> |
+	<a href="ListarSeguros.jsp">Listar Seguros</a>
 	<h1>Agregar Seguros</h1>
 	<form>
-	Id Seguro: 
-	<br><br>
+	Id Seguro: <strong>${siguienteId}</strong><br><br>
+	
 	Descripción: <input type="text" name="txtDescripcion"><br><br>
 	Tipo de Seguro:<br><br>
 	Costo contratación: <input type="text" name="txtCostoContratacion"><br><br>

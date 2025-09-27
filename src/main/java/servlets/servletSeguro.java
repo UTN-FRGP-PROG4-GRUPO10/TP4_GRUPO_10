@@ -26,6 +26,26 @@ public class servletSeguro extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		String action = request.getParameter("action");
+		
+		if ("nuevo".equals(action)){
+			SeguroDao sdao = new SeguroDao();
+			request.setAttribute("siguienteId", sdao.ObtenerSiguienteID());
+			request.getRequestDispatcher("AgregarSeguro.jsp").forward(request, response);
+			return;
+		}
+		
+		if("listar".equals(action)) {
+			SeguroDao sdao = new SeguroDao();
+			ArrayList<Seguro> lista = sdao.obtenerSeguros();
+			
+			request.setAttribute("listaSeguros", lista);
+			RequestDispatcher rd = request.getRequestDispatcher("/ListarSeguros.jsp");
+			rd.forward(request, response);
+			return;
+		}
+		
 	}
 
 
