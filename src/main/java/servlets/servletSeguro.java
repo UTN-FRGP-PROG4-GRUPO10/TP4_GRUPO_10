@@ -53,6 +53,35 @@ public class servletSeguro extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getParameter("btnAceptar") != null) {
+			SeguroDao sdao = new SeguroDao();
+			TipoSeguroDao tsdao = new TipoSeguroDao();
+			
+			try {
+				String descripcion = request.getParameter("txtDescripcion");
+				int idTipo = Integer.parseInt(request.getParameter("ddlTipoSeguro"));
+				double costoContratacion = Double.parseDouble(request.getParameter("txtCostoContratacion"));
+				double costoMax = Double.parseDouble(request.getParameter("txtCostoMax"));
+				
+				Seguro nuevoSeguro = new Seguro();
+				nuevoSeguro.setDescripcion(descripcion);
+				nuevoSeguro.setIdtipo(idTipo);
+				nuevoSeguro.setCostoContratacion(costoContratacion);
+				nuevoSeguro.setCostoAsegurado(costoMax);
+				
+				request.setAttribute("filas", sdao.agregarSeguro(nuevoSeguro));
+			} catch (Exception e) {
+				request.setAttribute("filas", 0);
+				e.printStackTrace();
+			} finally {				
+				request.setAttribute("siguienteId", sdao.ObtenerSiguienteID());
+				request.setAttribute("tiposSeguro", tsdao.obtenerTiposSeguro());
+			}
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/AgregarSeguro.jsp");
+			rd.forward(request, response);
+		}
+		
 		if(request.getParameter("param")!= null)
 		{
 			SeguroDao sdao = new SeguroDao();
