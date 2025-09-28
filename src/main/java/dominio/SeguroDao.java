@@ -26,7 +26,7 @@ public class SeguroDao  {
 			}
 		    
 		    String query = "INSERT INTO seguros(descripcion, idTipo, costoContratacion, costoAsegurado) "
-		            + "VALUES('" + seguro.getDescripcion() + "','" + seguro.getIdTipo() + "','" 
+		            + "VALUES('" + seguro.getDescripcion() + "','" + seguro.getTipoSeguro().getIdTipo() + "','" 
 		            + seguro.getCostoContratacion() + "','" + seguro.getCostoAsegurado() + "')";
 		    
 		    Connection cn = null;
@@ -59,16 +59,23 @@ public class SeguroDao  {
 			try {
 				cn = DriverManager.getConnection(host + dbName, user, pass);
 				Statement st = cn.createStatement();
-				String query = "SELECT * FROM seguros";
+				String query = "SELECT s.*, t.descripcion AS descripcionTipo FROM seguros s INNER JOIN tiposeguros t ON s.idTipo = t.idTipo";
 				ResultSet rs = st.executeQuery(query);
 				
 				while(rs.next()) {
 					Seguro Seguro = new Seguro();
+					TipoSeguro tipoSeguro = new TipoSeguro();
+					
+					tipoSeguro.setIdTipo(rs.getInt("idTipo"));
+					tipoSeguro.setDescripcion(rs.getString("descripcionTipo"));
+					
 					Seguro.setIdSeguro(rs.getInt("idSeguro"));
-					Seguro.setIdtipo(rs.getInt("idTipo"));
+					//Seguro.setIdtipo(rs.getInt("idTipo"));
 					Seguro.setDescripcion(rs.getString("descripcion"));
 					Seguro.setCostoContratacion(rs.getDouble("CostoContratacion"));	
 					Seguro.setCostoAsegurado(rs.getDouble("costoAsegurado"));
+					
+					Seguro.setTipoSeguro(tipoSeguro);
 					
 					Seguros.add(Seguro);
 				}

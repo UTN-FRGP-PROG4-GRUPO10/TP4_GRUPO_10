@@ -9,7 +9,7 @@
 <body>
 	<a href="Inicio.jsp">Inicio</a> |
 	<a href="servletSeguro?action=nuevo"><strong>Agregar Seguros</strong></a> |
-	<a href="ListarSeguros.jsp">Listar Seguros</a>
+	<a href="servletSeguro?action=listar">Listar Seguros</a>
 	<h1>Agregar Seguros</h1>
 	<form method="post" action="servletSeguro">
 		Id Seguro: <strong>${siguienteId}</strong><br><br>

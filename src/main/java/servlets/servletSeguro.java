@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dominio.Seguro;
+import dominio.TipoSeguro;
 import dominio.SeguroDao;
 import dominio.TipoSeguroDao;
 
@@ -57,6 +58,7 @@ public class servletSeguro extends HttpServlet {
 			SeguroDao sdao = new SeguroDao();
 			TipoSeguroDao tsdao = new TipoSeguroDao();
 			
+			
 			try {
 				String descripcion = request.getParameter("txtDescripcion");
 				int idTipo = Integer.parseInt(request.getParameter("ddlTipoSeguro"));
@@ -64,8 +66,11 @@ public class servletSeguro extends HttpServlet {
 				double costoMax = Double.parseDouble(request.getParameter("txtCostoMax"));
 				
 				Seguro nuevoSeguro = new Seguro();
+				TipoSeguro tipoSeguro = new TipoSeguro();
+				tipoSeguro.setIdTipo(idTipo);
 				nuevoSeguro.setDescripcion(descripcion);
-				nuevoSeguro.setIdtipo(idTipo);
+				//nuevoSeguro.setIdtipo(tipoSeguro);
+				nuevoSeguro.setTipoSeguro(tipoSeguro);
 				nuevoSeguro.setCostoContratacion(costoContratacion);
 				nuevoSeguro.setCostoAsegurado(costoMax);
 				
@@ -82,16 +87,6 @@ public class servletSeguro extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
-		if(request.getParameter("param")!= null)
-		{
-			SeguroDao sdao = new SeguroDao();
-			ArrayList<Seguro> lista = sdao.obtenerSeguros();
-			
-			request.setAttribute("listaSeguros", lista);
-			RequestDispatcher rd = request.getRequestDispatcher("/ListarSeguros.jsp");
-			rd.forward(request, response);
-			
-		}
 	}
 
 }
