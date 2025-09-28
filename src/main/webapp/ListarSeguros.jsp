@@ -8,7 +8,7 @@
 </head>
 <body>
 	<a href="Inicio.jsp">Inicio</a> |
-	<a href="AgregarSeguro.jsp">Agregar Seguros</a> |
+	<a href="servletSeguro?action=nuevo">Agregar Seguros</a> |
 	<a href="servletSeguro?param=1"><strong>Listar Seguros</strong></a>
 	<h1>Listar Seguros</h1>
 </body>

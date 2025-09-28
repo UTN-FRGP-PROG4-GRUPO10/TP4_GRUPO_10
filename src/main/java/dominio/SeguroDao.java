@@ -18,6 +18,12 @@ public class SeguroDao  {
 		}
 		
 		public int agregarSeguro(Seguro seguro) {
+			
+			try {
+			    Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+			    e.printStackTrace();
+			}
 		    
 		    String query = "INSERT INTO seguros(descripcion, idTipo, costoContratacion, costoAsegurado) "
 		            + "VALUES('" + seguro.getDescripcion() + "','" + seguro.getIdTipo() + "','" 
@@ -40,6 +46,13 @@ public class SeguroDao  {
 		
 		
 		public ArrayList<Seguro> obtenerSeguros() {
+			
+			try {
+			    Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+			    e.printStackTrace();
+			}
+			
 			ArrayList<Seguro> Seguros = new ArrayList<Seguro>();
 			
 			Connection cn = null;
@@ -68,8 +81,14 @@ public class SeguroDao  {
 		}
 		
 		
-		public int ObtenerSiguienteID()
-		{
+		public int ObtenerSiguienteID() {
+			
+			try {
+			    Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+			    e.printStackTrace();
+			}
+			
 			int nextId = 1;
 			String sql = "SELECT COALESCE(MAX(idSeguro), 0) + 1 AS nextId FROM seguros";
 			try (Connection cn = DriverManager.getConnection(host + dbName, user, pass);
