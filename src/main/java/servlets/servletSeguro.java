@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dominio.Seguro;
 import dominio.SeguroDao;
+import dominio.TipoSeguroDao;
 
 
 @WebServlet("/servletSeguro")
@@ -31,7 +32,9 @@ public class servletSeguro extends HttpServlet {
 		
 		if ("nuevo".equals(action)){
 			SeguroDao sdao = new SeguroDao();
+			TipoSeguroDao tsdao = new TipoSeguroDao();
 			request.setAttribute("siguienteId", sdao.ObtenerSiguienteID());
+			request.setAttribute("tiposSeguro", tsdao.obtenerTiposSeguro());
 			request.getRequestDispatcher("AgregarSeguro.jsp").forward(request, response);
 			return;
 		}
