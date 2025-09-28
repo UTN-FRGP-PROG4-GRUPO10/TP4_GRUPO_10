@@ -53,7 +53,7 @@ public class servletSeguro extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("btnAceptar") != null) {
+		if(request.getParameter("btnAgregar") != null) {
 			SeguroDao sdao = new SeguroDao();
 			TipoSeguroDao tsdao = new TipoSeguroDao();
 			

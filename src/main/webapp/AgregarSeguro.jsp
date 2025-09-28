@@ -30,7 +30,7 @@
 		<br><br>
 		Costo contratación: <input type="text" name="txtCostoContratacion"><br><br>
 		Costo Máximo Asegurado: <input type="text" name="txtCostoMax"><br><br>
-		<input type="submit" name="btnAceptar" value="Aceptar"/>
+		<input type="submit" name="btnAgregar" value="Aceptar"/>
 		<%
 			Object objFilas = request.getAttribute("filas");
 			if(objFilas != null) {
