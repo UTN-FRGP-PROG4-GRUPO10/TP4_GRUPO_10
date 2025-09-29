@@ -11,7 +11,7 @@
 <body>
 	<a href="Inicio.jsp">Inicio</a> |
 	<a href="servletSeguro?action=nuevo">Agregar Seguros</a> |
-	<a href="servletSeguro?action=listar">Listar Seguros</a>
+	<a href="servletSeguro?action=listar"><strong>Listar Seguros</strong></a>
 	<h1>Listar Seguros</h1>
 
 	<% 
@@ -57,7 +57,6 @@
             <th>Descripción Tipo Seguro</th>
             <th>Costo Contración</th>
             <th>Costo Asegurado</th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -71,7 +70,6 @@
 			<td><%= seguro.getTipoSeguro().getDescripcion() %></td>
 			<td><%= seguro.getCostoContratacion() %></td>
 			<td><%= seguro.getCostoAsegurado() %></td>
-			<td></td> 
 		</tr>
 	<%  } %>
     </tbody>
