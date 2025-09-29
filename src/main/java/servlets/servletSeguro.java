@@ -42,9 +42,29 @@ public class servletSeguro extends HttpServlet {
 		
 		if("listar".equals(action)) {
 			SeguroDao sdao = new SeguroDao();
-			ArrayList<Seguro> lista = sdao.obtenerSeguros();
+			TipoSeguroDao tsdao = new TipoSeguroDao();
+			
+			int tipoId = 0;
+			
+			try {
+				String tipoIdStr = request.getParameter("tipoId");
+				if (tipoIdStr != null && !tipoIdStr.isEmpty()) {
+					tipoId = Integer.parseInt(tipoIdStr);
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				
+			}
+			
+			
+			
+			ArrayList<Seguro> lista = (tipoId > 0) ? sdao.obtenerSegurosPorTipo(tipoId) : sdao.obtenerSeguros();
+			
 			
 			request.setAttribute("listaSeguros", lista);
+			request.setAttribute("tiposSeguro", tsdao.obtenerTiposSeguro());
+			request.setAttribute("tipoSeleccionado", tipoId);
+			
 			RequestDispatcher rd = request.getRequestDispatcher("/ListarSeguros.jsp");
 			rd.forward(request, response);
 			return;

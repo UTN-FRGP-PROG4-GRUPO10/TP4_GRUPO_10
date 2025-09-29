@@ -111,5 +111,45 @@ public class SeguroDao  {
 			return nextId;
 		}
 		
-		
+		public ArrayList<Seguro> obtenerSegurosPorTipo(int tipoId) {
+			
+			try {
+			    Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+			    e.printStackTrace();
+			}
+			
+			ArrayList<Seguro> Seguros = new ArrayList<Seguro>();
+			
+			Connection cn = null;
+			try {
+				cn = DriverManager.getConnection(host + dbName, user, pass);
+				Statement st = cn.createStatement();
+				String query = "SELECT s.*, t.descripcion AS descripcionTipo FROM seguros s INNER JOIN tiposeguros t ON s.idTipo = t.idTipo WHERE s.idTipo = " + tipoId;
+				ResultSet rs = st.executeQuery(query);
+				
+				while(rs.next()) {
+					Seguro Seguro = new Seguro();
+					TipoSeguro tipoSeguro = new TipoSeguro();
+					
+					tipoSeguro.setIdTipo(rs.getInt("idTipo"));
+					tipoSeguro.setDescripcion(rs.getString("descripcionTipo"));
+					
+					Seguro.setIdSeguro(rs.getInt("idSeguro"));
+					//Seguro.setIdtipo(rs.getInt("idTipo"));
+					Seguro.setDescripcion(rs.getString("descripcion"));
+					Seguro.setCostoContratacion(rs.getDouble("CostoContratacion"));	
+					Seguro.setCostoAsegurado(rs.getDouble("costoAsegurado"));
+					
+					Seguro.setTipoSeguro(tipoSeguro);
+					
+					Seguros.add(Seguro);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return Seguros;
+		}
 }

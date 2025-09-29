@@ -1,3 +1,5 @@
+<%@page import="dominio.TipoSeguro"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,15 +13,40 @@
 	<a href="servletSeguro?action=nuevo">Agregar Seguros</a> |
 	<a href="servletSeguro?action=listar">Listar Seguros</a>
 	<h1>Listar Seguros</h1>
-	
+
 	<% 
 	java.util.ArrayList<dominio.Seguro> listaSeguros = null;
-	if(request.getAttribute("listaSeguros")!=null)
-	{
 		listaSeguros = (java.util.ArrayList<dominio.Seguro>) request.getAttribute("listaSeguros");
-	}
+
+	java.util.ArrayList<dominio.TipoSeguro> listaTipoSeguros = null;
+        listaTipoSeguros = (java.util.ArrayList<dominio.TipoSeguro>) request.getAttribute("tiposSeguro");
+
+	Integer tipoSeleccionado = (Integer) request.getAttribute("tipoSeleccionado");
+	if (tipoSeleccionado == null) {
+        tipoSeleccionado = 0;
+    }
+	
+	
 
  %>
+ 
+ 
+ <form method="get" action="servletSeguro" style="margin:10px 0;">
+  <input type="hidden" name="action" value="listar"/>
+  <label>Busqueda por tipo de seguros:</label>
+  <select name="tipoId">
+    <option value="0">Todos</option>
+    <% if (listaTipoSeguros != null) {
+         for (dominio.TipoSeguro t : listaTipoSeguros) { %>
+      <option value="<%= t.getIdTipo() %>"
+        <%= (tipoSeleccionado == t.getIdTipo() ? "selected" : "") %>>
+        <%= t.getDescripcion() %>
+      </option>
+    <% }} %>
+  </select>
+  <button type="submit">Filtrar</button>
+  <a href="servletSeguro?action=listar">Limpiar</a>
+</form>
 
 
 <table border=1 id="table_id" class="display">
